@@ -17,4 +17,4 @@ RUN git clone https://github.com/ddclient/ddclient.git \
   && make install \
   && cd \
   && rm -rf /ddlient
-CMD /usr/bin/ddclient -verbose -foreground
+CMD /usr/bin/ddclient -foreground
