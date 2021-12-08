@@ -1,0 +1,10 @@
+version: "3.9"
+services: 
+  ddclient:
+    build: .
+    #container_name: ddclient
+    restart: always
+    tty: true # Needed to capture output in docker logs
+    init: true
+    volumes:
+      - ./ddclient.conf:/etc/ddclient/ddclient.conf
