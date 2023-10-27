@@ -1,33 +1,37 @@
-# ddclient-cloudflare-docker
-How to update cloudflare dns with ddclient in docker
+# Cloudflare DDclient Guide
+How to update Cloudflare DNS with DDclient
 
-I had a need to use dns for a personal project and went down the rabbit hole of dynamic dns.  Instead of using a ddns provider, I settled on creating a record in a zone in cloudflare and using ddclient to monitor and update the record's ip when it changes.
+I had a need to use DNS for a personal project and went down the rabbit hole of dynamic DNS.  Instead of using a DDNS provider, I settled on hosting a zone in Cloudflare and using ddlclient to keep a record up-to-date.
 
-I found a few blog and forum posts about how to use ddclient with cloudflare but it still took some hacking to get everything working. I've created this repo to bridge the gap between what's online and what it takes to get ddclient and cloudflare wired up.
+I found some stuff online about using ddclient with Cloudflare but it took some hacking to get everything working.
 
 ## Gotchas Discovered
-- Cloudflare deprecated the api version that ddclient originally used -- https://www.cloudflare.com/migrating-to-v4/
-- The version of ddclient in the ubuntu focal repo (3.8.3) still uses cloudflare's deprecated api.  To get the latest version, this repo installs ddclient from github.
+- Cloudflare deprecated the API that ddclient originally used -- https://www.cloudflare.com/migrating-to-v4/
+- The version of ddclient in the ubuntu focal repo (3.8.3) still uses Cloudflare's deprecated API.  To get the latest version, you have to install ddclient from Github.
 
 ## Setup
+It's assumed the reader has a Cloudflare account and a DNS zone.
 
-1. Create a cloudflare api token using the `Edit Zone DNS` template.  For `Zone Resources` select `All zones` - https://developers.cloudflare.com/api/tokens/create
-2. Clone this repo
+1. Create the DNS record you want to manage with ddclient.
+1. Create a Cloudflare API token using the `Edit Zone DNS` template.  For `Zone Resources` select `All zones` - https://developers.cloudflare.com/api/tokens/create
+1. Clone this repo
 ```
-git clone https://github.com/alexcreek/ddclient-cloudflare-docker.git
-cd ddclient-cloudflare-docker
+git clone https://github.com/alexcreek/cloudflare-ddclient-guide.git ddclient
+cd ddclient
 ```
-3. Update the following in [ddclient.conf](/ddclient.conf). If needed, here's some config examples from the [source](https://github.com/ddclient/ddclient/blob/develop/ddclient.in#L5489-L5516)
+1. Update the following in [ddclient.conf](/ddclient.conf). Here's some config examples from the [source](https://github.com/ddclient/ddclient/blob/develop/ddclient.in#L5489-L5516)
     - password=
     - zone=
     - RECORD_TO_UPDATE
-4. Start the container 
+1. Start the ddclient container.
 ```
 docker-compose up -d
 ```
-
 ## Validation
-ddclient's logs are captured by docker. They're available by running `docker-compose logs -f ddclient`.  Successful logs should look similar to:
+Check ddlient's logs for SUCCESS messages.
+
+`docker-compose logs -f ddclient` should yield:
+
 ```
 SUCCESS:  $record -- Updated Successfully to $ip
 ```
