@@ -13,17 +13,17 @@ I found some stuff online about using ddclient with Cloudflare but it took some 
 It's assumed the reader has a Cloudflare account and a DNS zone.
 
 1. Create the DNS record you want to manage with ddclient.
-1. Create a Cloudflare API token using the `Edit Zone DNS` template.  For `Zone Resources` select `All zones`. [ref](https://developers.cloudflare.com/api/tokens/create)
-1. Clone this repo.
+2. Create a Cloudflare API token using the `Edit Zone DNS` template.  For `Zone Resources` select `All zones`. [ref](https://developers.cloudflare.com/api/tokens/create)
+3. Clone this repo.
 ```
 git clone https://github.com/alexcreek/cloudflare-ddclient-guide.git ddclient
 cd ddclient
 ```
-1. Update the following in [ddclient.conf](/ddclient.conf).
+4. Update the following in [ddclient.conf](/ddclient.conf).
     - password=
     - zone=
     - RECORD_TO_UPDATE
-1. Start the ddclient container.
+5. Start the ddclient container.
 ```
 docker-compose up -d
 ```
