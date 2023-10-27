@@ -1,5 +1,5 @@
-# ddclient-cloudflare-docker
-How to update cloudflare dns with ddclient in docker
+# Cloudflare DDclient Guide
+How to update Cloudflare DNS with DDclient
 
 I had a need to use dns for a personal project and went down the rabbit hole of dynamic dns.  Instead of using a ddns provider, I settled on creating a record in a zone in cloudflare and using ddclient to monitor and update the record's ip when it changes.
 
@@ -14,8 +14,8 @@ I found a few blog and forum posts about how to use ddclient with cloudflare but
 1. Create a cloudflare api token using the `Edit Zone DNS` template.  For `Zone Resources` select `All zones` - https://developers.cloudflare.com/api/tokens/create
 2. Clone this repo
 ```
-git clone https://github.com/alexcreek/ddclient-cloudflare-docker.git
-cd ddclient-cloudflare-docker
+git clone https://github.com/alexcreek/cloudflare-ddclient-guide.git ddclient
+cd ddclient
 ```
 3. Update the following in [ddclient.conf](/ddclient.conf). If needed, here's some config examples from the [source](https://github.com/ddclient/ddclient/blob/develop/ddclient.in#L5489-L5516)
     - password=
