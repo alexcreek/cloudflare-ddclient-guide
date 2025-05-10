@@ -1,29 +1,22 @@
 # Cloudflare ddclient Guide
-How to update Cloudflare DNS with ddclient
+I wanted to use DNS for a personal project and went down the Dynamic DNS rabbit hole. I settled on hosting a DNS zone in Cloudflare and using ddclient to keep a record updated.
 
-I had a need to use DNS for a personal project and went down the rabbit hole of dynamic DNS.  Instead of using a DDNS provider, I settled on hosting a zone in Cloudflare and using ddclient to keep a record up-to-date.
+I found some info online for using ddclient with Cloudflare, but it took some hacking to get everything working.
 
-I found some stuff online about using ddclient with Cloudflare but it took some hacking to get everything working.
-
-## Gotchas Discovered
+### Gotchas Discovered
 - Cloudflare [deprecated](https://www.cloudflare.com/migrating-to-v4/) the API that ddclient originally used.
-- The version of ddclient in the ubuntu focal repo (3.8.3) still uses Cloudflare's deprecated API.  To get the latest version, you have to install ddclient from Github.
+- The version of ddclient in the ubuntu focal repo (3.8.3) still uses Cloudflare's deprecated API. To get the latest version, you have to install ddclient from Github.
 
-## Setup
-It's assumed the reader has a Cloudflare account and a DNS zone.
-
-1. Create the DNS record you want to manage with ddclient.
-2. Create a Cloudflare API token using the `Edit Zone DNS` template.  For `Zone Resources` select `All zones`. [ref](https://developers.cloudflare.com/api/tokens/create)
-3. Clone this repo.
-```
-git clone https://github.com/alexcreek/cloudflare-ddclient-guide.git ddclient
-cd ddclient
-```
-4. Update the following in [ddclient.conf](/ddclient.conf).
+## Usage
+1. Have a Cloudflare account and DNS zone 
+2. Create the DNS record ddclient should manage
+3. Create a Cloudflare API token. Use the 'Edit Zone DNS' template. For 'Zone Resources' select 'All zones' ([ref](https://developers.cloudflare.com/api/tokens/create))
+4. Clone this repo
+5. Update the following in [ddclient.conf](/ddclient.conf).
     - password=
     - zone=
     - RECORD_TO_UPDATE
-5. Start the ddclient container.
+6. Start the ddclient container.
 ```
 docker-compose up -d
 ```
